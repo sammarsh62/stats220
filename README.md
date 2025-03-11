@@ -13,7 +13,9 @@ A little about me:
 2. Attempt at
 3. Ordered bullet
 4. points
-5. https://www.tscf.org.nz/ 
+
+### Support the umbrella organisation that I am part of as a christian uni student :)
+https://www.tscf.org.nz/ 
 
 A meme that captures how I currently feel about my university studies is 
 ![](https://c.tenor.com/hPaBOJKnU5IAAAAC/tenor.gif)

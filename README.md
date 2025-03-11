@@ -17,6 +17,6 @@ A little about me:
 ### Support the umbrella organisation that I am part of as a christian uni student :)
 https://www.tscf.org.nz/ 
 
-A meme that captures how I currently feel about my university studies is 
+# A meme that captures how I currently feel about my university studies is 
 ![](https://c.tenor.com/hPaBOJKnU5IAAAAC/tenor.gif)
 

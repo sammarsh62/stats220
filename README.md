@@ -25,8 +25,8 @@ A little about me:
 - Colour-inspired anthology collections (In the planning stage)
 
 #### Other books
-1. The First Church of Mars (In progress)
-2. Highest rain, proudest snow (In progress)
+- The First Church of Mars (In progress)
+- Highest rain, proudest snow (In progress)
 
 ### Support the umbrella organisation that I am part of as a christian uni student :)
 https://www.tscf.org.nz/ 

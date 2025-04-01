@@ -1,0 +1,111 @@
+---
+title: My dynamic report
+output: html_fragment
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
+
+```
+
+```{css}
+
+body{
+  color: #11CCCC;
+  background-color: #323232;
+  font-family: 'Roman', serif;
+  font-size: 20px;
+  
+}
+h2{
+  color:#cccc11
+
+}
+
+```
+
+## Swimming speed at UOA's Recreation centre
+
+In this project I investigate swimming speeds at the university of Auckland recreation centre. Other variables investigated include how much gear is worn by 
+the swimmers, what swimming style/stroke is used, and whether the lane they are swimming in is marked fast, slow, medium, or water walking. 
+
+Lane length and time to complete a single lap with no return, are used to calculate the avergae swimming velocity of an observation after the fact. Since the pool under investigation has 2 different lane layouts it is important to distinguish between the 20m lane layout and the 25m lane layout. 
+
+I have chosen to calculate the velocity using these other two variables rather than calculating it on the form. This prevents calculation error and also preserves the distance the measurement was taken over. The latter is important because in swimming most swimmers will push off the wall which gives a speed boost. The average velocity in a 20m should then be expected to be higher than in a 25m, since the speed boost accounts for a larger percentage of all the swimmer's instantaneous velocities. I would also expect swim speed to diffeer between lane lengths due to fatigue, time spent swimming, and psychological factors involving the different lane appearances. Thus, I found it better to preserve which lane length each data came from rather than to simply log velocity. 
+
+## Graphs and charts
+
+```{r}
+
+library(tidyverse)
+
+#Reading in the file
+logged_data <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQJaNnksMZihCGIussR83rOY96yWpiISwRbhcGi3gYWnpiH75r7unCRwTedVSqnrBNz5HeN4Q0gzGLI/pub?output=csv")
+
+#Using meaningful names
+latest_data <- logged_data %>% 
+  rename(timestamp=1, stroke = 2, gear=3, lane=4,
+         distance = 5, time=6)
+
+#A separated sheet for visualisations about gear
+gear_separated <- separate_rows(latest_data, gear, sep=', ')
+
+#Creating a variable for the average velocity based on knowledge of physics
+latest_data$avg_velocity <- latest_data$distance/latest_data$time
+
+
+#Plots
+latest_data %>% #Bar chart for distribution of lanes
+  ggplot() + 
+  geom_bar(aes(x=lane))
+
+latest_data %>% #Bar chart for distribution of stroke styles
+  ggplot() + 
+  geom_bar(aes(x=stroke))
+
+gear_separated %>% #Bar chart for distribution of gear
+  ggplot() + 
+  geom_bar(aes(x=gear))
+
+latest_data %>% #Bar chart for distribution of gear, unseparated
+  ggplot() + 
+  geom_bar(aes(x=gear))
+
+#Box plot for lane length vs average lane speed
+boxplot(avg_velocity~distance, data=latest_data, horizontal=T, xlab='Average velocity in m/s')
+
+#Box plot for gear vs measured velocity of swimmers
+boxplot(avg_velocity~gear, data=latest_data, horizontal=F, ylab='Average velocity in m/s')
+
+#Box plot for lane speed vs measured velocity of swimmers
+boxplot(avg_velocity~lane, data=latest_data, horizontal=F, ylab='Average velocity in m/s')
+
+#Box plot for stroke type vs measured velocity of swimmers
+boxplot(avg_velocity~stroke, data=latest_data, horizontal=F, ylab='Average velocity in m/s')
+
+
+#Important values
+
+minny <- min(latest_data$avg_velocity) #The minimum swimming velocity recorded
+maxy <- max(latest_data$avg_velocity) #The maximum swimming velcoity recorded
+dimmy <- dim(latest_data) #The number of swimmers recorded and number of values logged
+
+minny <- round(minny, digits=2)
+maxy <- round(maxy, digits=2)
+
+
+
+pets <- c("cat", "dog", "turtle", "rabbit")
+best_pet <- pets[1]
+
+```
+
+## Summary Values
+The minimum average swimming velocity is `r minny` metres per second, and the maximum is `r maxy`m/s.  
+
+
+## Epilogue
+
+The best pet to have is a `r best_pet` of course!
+
+![](https://c.tenor.com/-qBsG1HwR4oAAAAC/tenor.gif)

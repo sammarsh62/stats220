@@ -2,6 +2,29 @@
 title: My dynamic report
 output: html_fragment
 ---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
+
+```
+
+```{css}
+
+body{
+  color: #11CCCC;
+  background-color: #323232;
+  font-family: 'Roman', serif;
+  font-size: 20px;
+  
+}
+h2{
+  color:#cccc11
+
+}
+
+```
+
+
 ## Swimming speed at UOA's Recreation centre
 
 In this project I investigate swimming speeds at the university of Auckland recreation centre. Other variables investigated include how much gear is worn by 

@@ -198,4 +198,4 @@ The best pet for a swimmer to have is a `r best_pet` of course!
 
 ![](d_turts.gif)
 
-![](my_animated_turts.gif)
+![](main/my_animated_turts.gif)

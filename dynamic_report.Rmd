@@ -196,6 +196,6 @@ Turtles can actually go a lot faster! However, I've compared their cruising spee
 
 The best pet for a swimmer to have is a `r best_pet` of course!
 
-d_turts.gif
+![](d_turts.gif)
 
 ![](my_animated_turts.gif)

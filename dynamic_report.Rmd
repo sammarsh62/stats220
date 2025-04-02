@@ -2,28 +2,6 @@
 title: My dynamic report
 output: html_fragment
 ---
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
-
-```
-
-```{css}
-
-body{
-  color: #11CCCC;
-  background-color: #323232;
-  font-family: 'Roman', serif;
-  font-size: 20px;
-  
-}
-h2{
-  color:#cccc11
-
-}
-
-```
-
 ## Swimming speed at UOA's Recreation centre
 
 In this project I investigate swimming speeds at the university of Auckland recreation centre. Other variables investigated include how much gear is worn by 
@@ -32,6 +10,16 @@ the swimmers, what swimming style/stroke is used, and whether the lane they are 
 Lane length and time to complete a single lap with no return, are used to calculate the avergae swimming velocity of an observation after the fact. Since the pool under investigation has 2 different lane layouts it is important to distinguish between the 20m lane layout and the 25m lane layout. 
 
 I have chosen to calculate the velocity using these other two variables rather than calculating it on the form. This prevents calculation error and also preserves the distance the measurement was taken over. The latter is important because in swimming most swimmers will push off the wall which gives a speed boost. The average velocity in a 20m should then be expected to be higher than in a 25m, since the speed boost accounts for a larger percentage of all the swimmer's instantaneous velocities. I would also expect swim speed to diffeer between lane lengths due to fatigue, time spent swimming, and psychological factors involving the different lane appearances. Thus, I found it better to preserve which lane length each data came from rather than to simply log velocity. 
+
+## Research Question
+
+For this project my main research questions are: 
+
+Do the average lane velocities of swimmers at the UoA pool match what the lane is labelled? i.e Is the fast lane faster than the medium lane and the latter faster than the slow lane? 
+
+Which lane should I swim in to most closely match the swimming speed of those around me? For this question I recorded my swimming speed and found that to swim 25m it took 30 seconds, which is around 0.83 m/s. 
+
+How does lanespeed compare to average turtle speed? 
 
 ## Graphs and charts
 
@@ -92,20 +80,97 @@ dimmy <- dim(latest_data) #The number of swimmers recorded and number of values 
 
 minny <- round(minny, digits=2)
 maxy <- round(maxy, digits=2)
+lanevec <-latest_data 
+lanemeans <- aggregate(lanevec[,7], list(lanevec$lane), mean)
+
+fastvec <- c(lanemeans[1, 1], lanemeans[1, 2])
+slowvec <- c(lanemeans[3, 1], lanemeans[3, 2])
+medvec <- c(lanemeans[2, 1], lanemeans[2, 2])
+
+fastdiff <- lanemeans[1,2] - 0.83
+meddiff <- lanemeans[2, 2] - 0.83
+slowdiff <- lanemeans[3,2] - 0.83
+
+fastest <- max(lanemeans[1,2], lanemeans[2, 2], lanemeans[3,2])
+closestdiff <- min(abs(fastdiff), abs(slowdiff), abs(meddiff))
+
+if (fastdiff == closestdiff){laneresult <- 'Fast'
+} else if (meddiff == closestdiff){laneresult <- 'Medium'
+  } else {laneresult <- 'Slow'}
+
+
+#Turtle speeds
+leatherback <- mean(c(0.558, 0.8404))
+green <- mean(c(0.268, 0.4917))
+kemprid <- mean(c(0.178, 0.3576))
+hawksbill <- mean(c(0.22352, 0.67056))
+oliverid <- 0.22352
+loggerhead <- 0.44704
+
+turtle_names <- c('Leatherback', 'Green', 'Kemps ridley', 'Hawksbill', 'Olive ridley', 'Loggerhead')
+
+turtlespeed <- c(leatherback, green, kemprid, hawksbill, oliverid, loggerhead)
+
+turtlediff1 <- abs(turtlespeed - lanemeans[1,2])
+turtlediff2 <- abs(turtlespeed - lanemeans[2,2])
+turtlediff3 <- abs(turtlespeed - lanemeans[3,2])
+
+tdfastind <- which(turtlediff1 == min(turtlediff1))
+tdmedind <- which(turtlediff2 == min(turtlediff2))
+tdslowind <- which(turtlediff3 == min(turtlediff3))
+
+fastturt <- turtle_names[tdfastind]
+medturt <- turtle_names[tdmedind]
+slowturt <- turtle_names[tdslowind]
 
 
 
 pets <- c("cat", "dog", "turtle", "rabbit")
-best_pet <- pets[1]
+best_pet <- pets[3]
 
 ```
 
 ## Summary Values
+
 The minimum average swimming velocity is `r minny` metres per second, and the maximum is `r maxy`m/s.  
+
+##  Which lane is actually the fastest?
+
+Below are the comparitive means of actual average lane velocity in m/s for lanes labelled with different speeds: 
+
+`r fastvec`
+
+`r medvec`
+
+`r slowvec`
+
+
+## Which lane should I swim in? 
+
+So the fastest average lane speed is `r fastest` and a swimmer like me, of velocity 0.83m/s should swim in the `r laneresult` lane, as it has the closest velocity to mine.
+
+## How does lanespeed compare to average turtle speed? 
+
+For the purpose of this investigation I used the following link: 
+
+https://a-z-animals.com/blog/discover-how-fast-sea-turtles-can-swim-top-speeds-and-interesting-facts/ 
+
+It should be noted that I did not investigate the accuracy of this resource as this is an informal research project. 
+
+The underlying data looks at the speeds of the following turtle species: 
+
+`r turtle_names`
+
+And the following text will use underlying code to detemine which turtle species is closest to the swimmers in each lane: 
+
+
+The speed of swimmers in the fast lane is closest to that of the `r fastturt` turtle. The speed of swimmers in the medium lane is closest to that of the `r medturt` and the speed of swimmees in the slow lane is closest to that of the `r slowturt`. 
+
+Turtles can actually go a lot faster! However, I've compared their cruising speeds rather than their maximum speeds. 
 
 
 ## Epilogue
 
-The best pet to have is a `r best_pet` of course!
+The best pet for a swimmer to have is a `r best_pet` of course!
 
-![](https://c.tenor.com/-qBsG1HwR4oAAAAC/tenor.gif)
+![](my_animated_turts.gif)

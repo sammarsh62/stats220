@@ -1,0 +1,212 @@
+---
+title: My visual data story
+output: html_document
+---
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
+```
+
+```{js}
+$(function() {
+  $(".level2").css('visibility', 'hidden');
+  $(".level2").first().css('visibility', 'visible');
+  $(".container-fluid").height($(".container-fluid").height() + 300);
+  $(window).on('scroll', function() {
+    $('h2').each(function() {
+      var h2Top = $(this).offset().top - $(window).scrollTop();
+      var windowHeight = $(window).height();
+      if (h2Top >= 0 && h2Top <= windowHeight / 2) {
+        $(this).parent('div').css('visibility', 'visible');
+      } else if (h2Top > windowHeight / 2) {
+        $(this).parent('div').css('visibility', 'hidden');
+      }
+    });
+  });
+})
+```
+
+```{css}
+.figcaption {display: none}
+
+body{
+  color: #333333;
+  background-image: url('pexels-santiago-manuel-de-la-colina-520897-3621556.jpg');
+  font-family: 'Roman', serif;
+  font-size: 20px;
+  padding: 5px;
+  margin: 20;
+  
+}
+
+h1{ color: #55cccc;
+    text-align: center; 
+    background-color: #333333;
+    padding: 10px 20px;
+    margin: 8px 4px;
+    box-sizing: border-box
+}
+
+h2{
+  color:#cc4454;
+  text-align: center;
+  background-color: #333333;
+  padding: 10px 20px;
+  margin: 8px 4px;
+  box-sizing: border-box
+}
+
+h3{
+  color:#55cccc;
+  text-align: center;
+  background-color: #773367;
+  padding: 10px 20px;
+  margin: 8px 4px;
+  box-sizing: border-box
+}
+
+p{
+  background-color: #6699aa;
+  text-align: center;
+  padding: 10px 20px;
+  margin: 8px 4px;
+  box-sizing: border-box
+}
+
+
+```
+
+
+## Welcome to my visual data story 
+
+![A duck gif with badpuns](C:/Users/sarah/OneDrive/Desktop/rstuff/stats220/Proj3/Project3/creativity.gif)
+
+
+### Investigation briefing 
+
+I made a series of visits to my local recreation centre to investigate how fast people there swim.
+
+**Questions we could investigate:**
+
+Should I swim in the slow lane, or the fast lane? Do people actually care what lane they swim in? 
+  
+What are the most and least popular swimming strokes? How fast are they? 
+  
+Do the type of people who go to the effort of buying and wearing a swimcap tend to be faster or slower? 
+  
+Do people swim different speeds when the length or appearance of the lane changes? 
+
+
+## Swim on
+
+![A new duck gif with bad puns](ducksep.gif)
+
+
+## Average velocity for each day of the week
+
+
+![A figure showing average velocity of swimmers vs the day of the week. All 4 dayas present velocities that are very simple. Only Mon, Tue, Thur, and Fri are shown. Thursday has the value furthest from the others, but was not sampled as much as the others.](p4p1.png)
+This graph shows the mean velocity for all swims recorded on a given day of the week type. I have coloured the bars by the number of samples taken in order to give an idea of accuracy. 
+
+
+### About this graph 
+
+In the above graph, as you can see, only four days are shown. This is because I did not sample on weekends and Wednesdays as these days I stay home. Monday and Friday have more samples taken as these are the days I normally go to the pool, so it was more convenient to take data. 
+
+Looking at the graph, we see the mean velocity is pretty similar for all days. Thursday does diverge a little from the others, however this is likely due to the fact I only recorded 4 swims across all Thursdays. Overall, it looks like the speed people swim at does not depend on what day they swim. 
+
+
+## Swim on
+
+![the second duck gif with bad puns](ducksep.gif)
+
+
+
+## Average velocity for different swimming styles
+
+![Figure shows average velocity on the y axis, and swimming types backstroke, breaststroke, buttterfly, free-style and 'other' on the x axis. It is a scatter and box plot colour coded by the speed of the lane swimmers were swimming in](p4p2.png)
+
+### About this graph 
+
+Some swimming strokes are faster than others, but do more experienced swimmers always pick faster swimming styles? Do people choose lanes based on how fast they want to go or what style they want to swim? 
+
+Looking at the above graph, the fastest two swims (yes that is two tiny points close together) were butterfly swims. However, overall freestyle is said to be a faster stroke. A possible explanation is that the particular one or two swimmers that generated these two datapoints were simply more practised or professional swimmers. Overall, it was not a popular swim stroke at this pool so we do not have much data about it. 
+
+Freestyle was the most popular swimming stroke and was swum at a large range of speeds and in most lane types. Breaststroke was also quite popular, but had a smaller range of speeds and was swum almost exclusively in the medium and slow lanes. 
+
+One odd thing we notice looking at the colour-coded scatter is that those swimmers who swum breastroke in the slow lane were actually faster on average than their counterparts who swum it in the medium lane! 
+
+Most people swum well-established swimming styles and I only recorded one data point that fell into the 'other' category. 
+
+## Swim on
+
+![The second duck gif with bad puns](ducksep.gif)
+
+
+## Category plots 
+
+
+### Zoomed out image of the combined plot. There'll be another version easier to read later! 
+
+![A small row of bar plots showing velocity vs different categorical variables](row_plot.png)
+
+Above, I have created a combined plot that lets us look at and compare the remaining categorical variables in the data. These categorical variables are: 
+
+Whether or not the swimmer wears a swim cap. 
+
+Whether the lane arrangement uses 20m lanes (lanes across the width of the pools) or 25m lanes (length). 
+
+What speed the lane is labelled as: fast, medium, slow, or water walking. 
+
+In our category comparison plots we compare each of these variables against the mean velocity in m/s. 
+
+### The focus of this investigation 
+
+The focus of combining these different categorical plots into the same visualisation is to allow us to see which of these three variables differs the most in average velocity. 
+
+
+### The same visualisation, in a stacked format for easier reading
+
+![The same 3 plots, but stacked and in a larger size to display more detail. These bars show velocity vs lane speed, whether the swimmer wears a cap, and lane distance. Most of the bars are similar heights except for the fast lane speed being much taller](stack_plot.png)
+
+### We can also use an animation
+
+![The same three plots put in an animation](aniplot.gif)
+
+Try to focus on the way the bars change as the animation rotates, bearing in mind the different variables you examined above. 
+
+
+### Conclusion
+
+After looking at these three different ways to combine the plots, we can conclude that of these three categorical variables, the one that differs with velocity the most is lane type - the speed assigned to the lane. 
+
+This is as expected, I think, because lane type informs swimmers to pick a lane based on speed. However, it is interesting to see how the slow and medium lanes have similar mean velocities. 
+
+Indeed, the slow and medium lanes do not differ from each other any more than the 20 and 25m lanes differ from each other. 
+
+Personally, I think this is a natural result of language limitations. Because 'slow', 'medium' and 'fast' do not have strict numerical boundaries, people are left to define for themselves just how fast 'fast' is and just how slow 'slow' is. Coming from different swimming backgrounds, people will have a variety of perceptions on how fast fast is. 
+
+One thing that stands out is that the fast lane has a mean velocity that has a standout difference to the other lanes. My guess - without statistical evidence whatsoever - is that this is a result of culture. Perhaps people think it is more comfortable to claim they are slow when they are not than it is to claim that they are fast when they are not - and only those who are professionals would dare claim themselves to be fast. Or perhaps people share the mentality I had when I first started swimming here - that it is better to be fast in a slow lane and slow down for the one in front of me, than it is to be slow in a fast lane and thus inconvenience somebody else - and so only choose the fast lane when they know they will not slow down anybody else. 
+
+### Lane speed breakdown 
+
+Something I observered while swimming here and also taking data, which does not show up in the data itself, is the lane speed breakdown phenomenon. 
+
+This is what happens when there are so few swimmers that there are enough lanes for one person per lane, and some lanes spare. 
+
+Likely for the reason of being able to swim in solitude or being able to let others do so and thus not bother them, when there are empty lanes, new swimmers entering the pool will gravitate towards the lanes that are empty, not the lanes that best fit their speed. 
+
+This is a challenging phenomenon to record data on, and I cannot confirm that it always occurs. However, I have observed this behaviour happening, and I have taken part in it myself. Thus, one should be aware that when there are not many swimmers at the pool, the lane speeds people are in may not reflect the lane speeds they would normally self-select into.  
+
+
+## A bonus plot: Category plots combined!
+
+![The same data from the 3 plots, but with all bars in the same plot and legend](p4p3.png)
+
+## Background image credit
+
+Photo by Santiago Manuel De la Colina from pexels: https://www.pexels.com/photo/blue-water-3621556/
+
+
